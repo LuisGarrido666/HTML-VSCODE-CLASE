@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PokeDex — Landing</title>
+    <meta name="description" content="Landing simple tipo PokeDex: navegación, hero, búsqueda y cards responsivas." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="icon" href="pokedex-3.ico" type="image/x-icon">
+   
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+                <div style="font-size:1.05rem">PokeDex</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:2px">Explora Pokémon</div>
+            </div>
+        </div>
+        <nav style="display:flex;gap:8px;align-items:center">
+            <a href="#">Inicio</a>
+            <a href="#">Pokémons</a>
+            <a href="#">Acerca</a>
+            <a href="#">Contacto</a>
+            <button class="cta" onclick="document.getElementById('search').focus()">Buscar</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-card">
+                <h1>Descubre y explora Pokémon</h1>
+                <p class="lead">Busca por nombre o filtra tu colección. Tarjetas responsivas, diseño simple y rápido para arrancar tu PokeDex.</p>
+
+                <div class="search" role="search" style="margin-top:12px">
+                    <input id="search" type="search" placeholder="Buscar Pokémon (ej. pikachu, bulbasaur)" aria-label="Buscar Pokémon">
+                    <button id="clear" title="Limpiar">✕</button>
+                </div>
+                <div class="mini">La búsqueda filtra las tarjetas localmente.</div>
+
+                <div class="grid" style="margin-top:18px" id="featured">
+                    <!-- featured small cards -->
+                    <div class="card" data-name="pikachu">
+                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu"></div>
+                        <div class="name">Pikachu</div>
+                        <div class="types"><div class="type">Eléctrico</div></div>
+                    </div>
+                    <div class="card" data-name="bulbasaur">
+                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur"></div>
+                        <div class="name">Bulbasaur</div>
+                        <div class="types"><div class="type">Planta</div><div class="type">Veneno</div></div>
+                    </div>
+                    <div class="card" data-name="charmander">
+                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="Charmander"></div>
+                        <div class="name">Charmander</div>
+                        <div class="types"><div class="type">Fuego</div></div>
+                    </div>
+                    <div class="card" data-name="squirtle">
+                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" alt="Squirtle"></div>
+                        <div class="name">Squirtle</div>
+                        <div class="types"><div class="type">Agua</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <aside style="display:flex;flex-direction:column;gap:14px">
+                <div style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px">
+                    <h3 style="margin:0 0 6px">Colección</h3>
+                    <p style="margin:0;color:var(--muted)">Muestra algunos Pokémon populares. Añade más cartas o conecta una API para cargar dinámicamente.</p>
+                </div>
+
+                <div style="background:var(--card);padding:14px;border-radius:12px;text-align:center">
+                    <div style="font-weight:700;font-size:18px">API lista</div>
+                    <div style="color:var(--muted);margin-top:6px;font-size:13px">Integra PokeAPI para datos reales</div>
+                    <button style="margin-top:10px;padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);cursor:pointer" onclick="alert('Integra PokeAPI para cargar datos reales')">Integrar API</button>
+                </div>
+            </aside>
+        </section>
+
+        <section>
+            <h2 style="margin:6px 0 12px">Explorar todos</h2>
+            <div class="grid" id="allGrid">
+                <!-- a few more sample cards -->
+                <div class="card" data-name="eevee">
+                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png" alt="Eevee"></div>
+                    <div class="name">Eevee</div>
+                    <div class="types"><div class="type">Normal</div></div>
+                </div>
+                <div class="card" data-name="jigglypuff">
+                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" alt="Jigglypuff"></div>
+                    <div class="name">Jigglypuff</div>
+                    <div class="types"><div class="type">Normal</div><div class="type">Hada</div></div>
+                </div>
+                <div class="card" data-name="meowth">
+                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png" alt="Meowth"></div>
+                    <div class="name">Meowth</div>
+                    <div class="types"><div class="type">Normal</div></div>
+                </div>
+                <div class="card" data-name="snorlax">
+                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png" alt="Snorlax"></div>
+                    <div class="name">Snorlax</div>
+                    <div class="types"><div class="type">Normal</div></div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            Diseñado como plantilla — Datos de ejemplo. © 2026
+        </footer>
+    </main>
+
+    <script>
+        // búsqueda simple que filtra cards por data-name
+        const search = document.getElementById('search');
+        const clearBtn = document.getElementById('clear');
+        const containers = [document.getElementById('featured'), document.getElementById('allGrid')];
+
+        function filter(q){
+            const term = (q || '').trim().toLowerCase();
+            containers.forEach(container=>{
+                Array.from(container.querySelectorAll('.card')).forEach(card=>{
+                    const name = card.getAttribute('data-name') || '';
+                    card.style.display = term && !name.includes(term) ? 'none' : '';
+                });
+            });
+        }
+
+        search.addEventListener('input', e => filter(e.target.value));
+        clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); filter(''); });
+
+        // permite filtrar con Enter (útil si se integra backend)
+        search.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); filter(search.value); }});
+    </script>
+</body>
+</html>

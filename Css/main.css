@@ -1,0 +1,57 @@
+:root{
+            /* Paleta accesible (WCAG AA)
+               Variables principales:
+               --bg: color de fondo de la app
+               --text: color principal de texto sobre el fondo
+               --primary: color principal para botones/accent
+               --primary-contrast: color del texto sobre el botón primary
+
+               Ratios esperados (aprox.)
+               - `--text` sobre `--bg` >= 4.5:1 (texto normal). Esperado: ~14:1 (AA y AAA)
+               - `--primary-contrast` sobre `--primary` >= 4.5:1 (texto en botones). Esperado: ~13:1 (AA y AAA)
+               - `--primary` sobre `--bg` >= 3:1 (componentes UI/íconos). Esperado: ~10:1 (mejora la visibilidad)
+            */
+            --bg: #0b1220; /* fondo oscuro */
+            --text: #E6EEF8; /* texto principal (alto contraste sobre --bg) */
+            --card: #0f1724;
+            --primary: #FFCC00; /* color de acción (botones) */
+            --primary-contrast: #0b1220; /* texto sobre boton primary */
+            --accent:#ff1f1f;
+            --muted:#98a0b3;
+            --glass: rgba(255,255,255,0.03);
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%;margin:0;background:linear-gradient(180deg,#071026 0%, #07172a 50%), var(--bg);color:var(--text)}
+        header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;backdrop-filter:blur(6px)}
+        .brand{display:flex;gap:12px;align-items:center;font-weight:700;letter-spacing:0.6px}
+        .logo{
+            width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6,#fff0 2%),linear-gradient(180deg,#ff3b3b 0,#d11 60%);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,0.5);position:relative;
+        }
+        .logo::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;right:9px;top:9px;opacity:0.9}
+        nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+        nav a:hover{color:#fff;background:var(--glass)}
+        .cta{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+        main{padding:28px;max-width:1100px;margin:0 auto}
+        .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin:28px 0}
+        .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:28px;border-radius:14px;box-shadow:0 6px 28px rgba(2,6,23,0.6)}
+        h1{margin:0 0 12px;font-size:2rem}
+        p.lead{color:var(--muted);margin:0 0 18px}
+        .search{display:flex;gap:10px;align-items:center}
+        .search input{flex:1;padding:12px 14px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:inherit;outline:none}
+        .search button{padding:10px 12px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.03);color:var(--muted);cursor:pointer}
+        .mini{font-size:0.9rem;color:var(--muted);margin-top:8px}
+        /* grid */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-top:22px}
+        .card{background:var(--card);padding:12px;border-radius:12px;text-align:center;color:inherit;border:1px solid rgba(255,255,255,0.03);transition:transform .18s,box-shadow .18s}
+        .card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+        .imgwrap{height:96px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+        .imgwrap img{width:80px;height:80px}
+        .name{font-weight:700;margin-bottom:6px}
+        .types{display:flex;gap:8px;justify-content:center}
+        .type{padding:6px 8px;border-radius:999px;font-size:12px;background:rgba(255,255,255,0.04)}
+        footer{margin-top:36px;padding:18px 28px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);text-align:center;font-size:14px}
+        @media (max-width:880px){
+            .hero{grid-template-columns:1fr; text-align:center}
+            nav{margin-top:8px}
+        }
