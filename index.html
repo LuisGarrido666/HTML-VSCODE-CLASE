@@ -36,6 +36,7 @@
 
                 <div class="search" role="search" style="margin-top:12px">
                     <input id="search" type="search" placeholder="Buscar Pokémon (ej. pikachu, bulbasaur)" aria-label="Buscar Pokémon">
+                    <button id="doSearch" title="Buscar">Buscar</button>
                     <button id="clear" title="Limpiar">✕</button>
                 </div>
                 <div class="mini">La búsqueda filtra las tarjetas localmente.</div>
@@ -80,7 +81,7 @@
         </section>
 
         <section>
-            <h2 style="margin:6px 0 12px">Explorar todos</h2>
+            <h2 style="margin:6px 0 12px">Explorar todos <button id="loadAll" style="margin-left:10px;padding:6px 8px;border-radius:8px;cursor:pointer">Mostrar todos</button> <span id="loadProgress" style="font-size:12px;color:var(--muted);margin-left:8px"></span></h2>
             <div class="grid" id="allGrid">
                 <!-- a few more sample cards -->
                 <div class="card" data-name="eevee">
@@ -131,10 +132,11 @@
         clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); filter(''); });
 
         // permite filtrar con Enter (útil si se integra backend)
-        search.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); filter(search.value); }});
+        search.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); performSearch(); }});
 
         // --- Integración PokeAPI: cargar más Pokémon dinámicamente ---
         const allGrid = document.getElementById('allGrid');
+        const doSearchBtn = document.getElementById('doSearch');
 
         function capitalize(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
 
@@ -166,6 +168,69 @@
                 console.warn('PokeAPI error:', err);
             }
         }
+
+        // crea una card a partir de la respuesta de PokeAPI
+        function createCardFromApi(p){
+            const id = p.id || '';
+            const name = p.name || '';
+            const img = (p.sprites && (p.sprites.other && p.sprites.other['official-artwork'] && p.sprites.other['official-artwork'].front_default)) || p.sprites.front_default || '';
+            const types = (p.types || []).map(t => capitalize(t.type.name));
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('data-name', name);
+            card.setAttribute('data-fetched', 'true');
+            card.innerHTML = `
+                <div class="imgwrap"><img src="${img}" alt="${name}"></div>
+                <div class="name">${capitalize(name)}</div>
+                <div class="types">${types.map(t => `<div class="type">${t}</div>`).join('')}</div>
+            `;
+            return card;
+        }
+
+        // buscar un único Pokémon en la API y mostrarlo en la landpage
+        async function fetchAndShowPokemon(name){
+            const q = (name||'').trim().toLowerCase();
+            if(!q) return;
+            // evitar duplicados
+            if(document.querySelector(`.card[data-name="${CSS.escape(q)}"]`)){
+                const existing = document.querySelector(`.card[data-name="${CSS.escape(q)}"]`);
+                existing.scrollIntoView({behavior:'smooth',block:'center'});
+                return;
+            }
+            try{
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${q}`);
+                if(!res.ok){
+                    alert('Pokémon no encontrado. Verifica el nombre.');
+                    return;
+                }
+                const data = await res.json();
+                const card = createCardFromApi(data);
+                allGrid.prepend(card);
+                card.scrollIntoView({behavior:'smooth',block:'center'});
+                if(!containers.includes(allGrid)) containers.push(allGrid);
+            }catch(err){
+                console.warn('Error fetch pokemon:', err);
+                alert('Error al buscar Pokémon. Intenta nuevamente.');
+            }
+        }
+
+        // realiza la búsqueda local y, si no hay coincidencias, intenta buscar en la API
+        async function performSearch(){
+            const term = (search.value||'').trim().toLowerCase();
+            filter(term);
+            if(!term) return;
+            const anyVisible = containers.some(c => Array.from(c.querySelectorAll('.card')).some(card => card.style.display !== 'none' && (card.getAttribute('data-name')||'').includes(term)));
+            if(!anyVisible){
+                await fetchAndShowPokemon(term);
+            }
+        }
+
+        // botón Buscar junto al input
+        doSearchBtn.addEventListener('click', () => performSearch());
+
+        // limpiar también elimina resultados traídos por la API
+        clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); filter(''); document.querySelectorAll('.card[data-fetched="true"]').forEach(n=>n.remove()); });
 
         // cargar al iniciar
         loadPokemons(150);
