@@ -77,14 +77,21 @@
             </div>
 
             <aside style="display:flex;flex-direction:column;gap:14px">
-                <div id="collectionCard" style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;display:flex;gap:12px;align-items:center">
-                    <img id="collectionImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu" style="width:120px;height:120px;object-fit:contain">
-                    <div style="flex:1">
-                        <h3 id="collectionName" style="margin:0 0 6px">Pikachu</h3>
-                        <div id="collectionTypes" style="margin-bottom:8px"><div class="type">Eléctrico</div></div>
-                        <p id="collectionDesc" style="margin:0;color:var(--muted);font-size:13px">Pikachu es un Pokémon de tipo eléctrico conocido por su energía y popularidad.</p>
-                        <div style="margin-top:8px"><button id="collectionRandom" style="padding:8px 10px;border-radius:8px;cursor:pointer">Aleatorio</button></div>
+                <div id="collectionCard" style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+                    <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:14px">
+                        <img id="collectionImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu" style="width:100px;height:100px;object-fit:contain;flex-shrink:0">
+                        <div style="flex:1">
+                            <h3 id="collectionName" style="margin:0 0 8px;font-size:1.375rem">Pikachu</h3>
+                            <div id="collectionTypes" style="margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap"></div>
+                            <div id="collectionInfo" style="color:var(--muted);font-size:0.95rem;margin-bottom:10px">Tipo: Eléctrico • Altura: 0.4m • Peso: 6kg</div>
+                        </div>
                     </div>
+                    <div id="collectionAbilities" style="margin-bottom:10px;font-size:0.95rem;color:var(--muted)">
+                        <div style="font-weight:600;color:var(--text);margin-bottom:4px">Habilidades:</div>
+                        <div></div>
+                    </div>
+                    <p id="collectionDesc" style="margin:0 0 12px;color:var(--muted);font-size:0.95rem;line-height:1.5">Pikachu es un Pokémon de tipo eléctrico conocido por su energía y popularidad.</p>
+                    <button id="collectionRandom" style="padding:10px 14px;border-radius:8px;cursor:pointer;width:100%;font-weight:600">Pokémon Aleatorio</button>
                 </div>
 
                 
@@ -247,6 +254,8 @@
         const collectionImg = document.getElementById('collectionImg');
         const collectionName = document.getElementById('collectionName');
         const collectionTypes = document.getElementById('collectionTypes');
+        const collectionInfo = document.getElementById('collectionInfo');
+        const collectionAbilities = document.getElementById('collectionAbilities');
         const collectionDesc = document.getElementById('collectionDesc');
         const collectionRandomBtn = document.getElementById('collectionRandom');
 
@@ -255,11 +264,17 @@
             const name = p.name || '';
             const img = (p.sprites && (p.sprites.other && p.sprites.other['official-artwork'] && p.sprites.other['official-artwork'].front_default)) || p.sprites.front_default || collectionImg.src;
             const types = (p.types || []).map(t=>capitalize(t.type.name));
+            const heightM = ((p.height||0)/10).toFixed(1);
+            const weightKg = ((p.weight||0)/10).toFixed(1);
+            const abilities = (p.abilities||[]).map(a=>capitalize(a.ability.name)).join(', ') || 'Desconocida';
+            
             collectionImg.src = img;
             collectionImg.alt = name;
             collectionName.textContent = capitalize(name);
             collectionTypes.innerHTML = types.map(t=>`<div class="type">${t}</div>`).join('');
-            collectionDesc.textContent = `Altura ${p.height} • Peso ${p.weight} — Pokédex: ${p.id}`;
+            collectionInfo.textContent = `Tipo: ${types.join(', ')} • Altura: ${heightM} m • Peso: ${weightKg} kg`;
+            collectionAbilities.innerHTML = `<div style="font-weight:600;color:var(--text);margin-bottom:4px">Habilidades:</div><div>${abilities}</div>`;
+            collectionDesc.textContent = `Pokédex #${p.id}`;
         }
 
         async function fetchAndPopulateCollection(q){
@@ -268,6 +283,23 @@
                 if(!res.ok) return;
                 const data = await res.json();
                 renderCollection(data);
+                
+                // fetch species para obtener descripción en español
+                try{
+                    const sUrl = (data.species && data.species.url) ? data.species.url : `https://pokeapi.co/api/v2/pokemon-species/${data.id}`;
+                    const sres = await fetch(sUrl);
+                    if(sres.ok){
+                        const species = await sres.json();
+                        const entries = species.flavor_text_entries || [];
+                        let flavor = '';
+                        for(const e of entries){
+                            if(e.language && e.language.name === 'es') { flavor = e.flavor_text; break; }
+                        }
+                        if(!flavor && entries.length) flavor = entries[0].flavor_text || '';
+                        flavor = (flavor || '').replace(/\f|\n/g,' ').replace(/\s+/g,' ').trim();
+                        collectionDesc.textContent = flavor;
+                    }
+                }catch(se){ console.warn('collection species fetch', se); }
             }catch(e){ console.warn('collection fetch', e); }
         }
 
