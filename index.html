@@ -292,14 +292,41 @@
                         const species = await sres.json();
                         const entries = species.flavor_text_entries || [];
                         let flavor = '';
+                        
+                        // buscar descripción en español
                         for(const e of entries){
-                            if(e.language && e.language.name === 'es') { flavor = e.flavor_text; break; }
+                            if(e.language && e.language.name === 'es') { 
+                                flavor = e.flavor_text; 
+                                break; 
+                            }
                         }
+                        
+                        // si no hay español, buscar inglés
+                        if(!flavor) {
+                            for(const e of entries){
+                                if(e.language && e.language.name === 'en') { 
+                                    flavor = e.flavor_text; 
+                                    break; 
+                                }
+                            }
+                        }
+                        
+                        // fallback a la primera disponible
                         if(!flavor && entries.length) flavor = entries[0].flavor_text || '';
+                        
+                        // limpiar espacios en blanco y caracteres especiales
                         flavor = (flavor || '').replace(/\f|\n/g,' ').replace(/\s+/g,' ').trim();
-                        collectionDesc.textContent = flavor;
+                        
+                        if(flavor) {
+                            collectionDesc.textContent = flavor;
+                        } else {
+                            collectionDesc.textContent = `Pokédex #${data.id}`;
+                        }
                     }
-                }catch(se){ console.warn('collection species fetch', se); }
+                }catch(se){ 
+                    console.warn('collection species fetch', se);
+                    collectionDesc.textContent = `Pokédex #${data.id}`;
+                }
             }catch(e){ console.warn('collection fetch', e); }
         }
 
