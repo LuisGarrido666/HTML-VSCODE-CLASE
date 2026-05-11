@@ -1,389 +1,135 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>PokeDex — Landing-2026</title>
-    <meta name="description" content="Landing simple tipo PokeDex: navegación, hero, búsqueda y cards responsivas." />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Centro Pokemon - Evaluacion Front-End</title>
+    <meta name="description" content="Proyecto con carrusel Pokemon, formularios semanticos y validaciones seguras en JavaScript modular.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Css/main.css">
     <link rel="icon" href="Images/pokedex-3.ico" type="image/x-icon">
-                <div id="dittoCard" style="background:var(--card);padding:14px;border-radius:12px;">
-                    <div style="display:flex;gap:10px;align-items:center">
-                        <img id="dittoImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="Ditto" style="width:80px;height:80px;object-fit:contain">
-                        <div>
-                            <div id="dittoName" style="font-weight:700">Ditto</div>
-                            <div id="dittoInfo" style="color:var(--muted);font-size:13px">Tipo: Normal • Altura: 1 • Peso: 40</div>
-                                <div id="dittoAbilities" style="margin-top:6px;font-size:13px;color:var(--muted)"></div>
-                                <div id="dittoFlavor" style="margin-top:8px;font-size:13px;color:var(--muted)"></div>
-                        </div>
-                    </div>
-                </div>
 </head>
 <body>
-    <header>
-        <div class="brand">
-            <div class="logo" aria-hidden="true"></div>
+    <header class="site-header">
+        <div class="brand-wrap">
+            <div class="brand-ball" aria-hidden="true"></div>
             <div>
-                <div style="font-size:1.05rem">PokeDex</div>
-                <div style="font-size:12px;color:var(--muted);margin-top:2px">Explora Pokémon</div>
+                <p class="brand-title">Centro Pokemon</p>
+                <p class="brand-subtitle">Carrusel, Formularios y Validacion</p>
             </div>
         </div>
-        <nav style="display:flex;gap:8px;align-items:center">
-            <a href="#">Inicio</a>
-            <a href="#">Pokémons</a>
-            <a href="#">Acerca</a>
-            <a href="#">Contactosss</a>
-            <button class="cta" onclick="document.getElementById('search').focus()">Buscar</button>
+
+        <nav aria-label="Navegacion principal" class="main-nav">
+            <a href="#slider">Slider</a>
+            <a href="#registro">Registro</a>
+            <a href="#login">Login</a>
+            <a href="#contacto">Contacto</a>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-card">
-                <h1>Descubre y explora Pokémon</h1>
-                <p class="lead">Busca por nombre o filtra tu colección. Tarjetas responsivas, diseño simple y rápido para arrancar tu PokeDex.</p>
-
-                <div class="search" role="search" style="margin-top:12px">
-                    <input id="search" type="search" placeholder="Buscar Pokémon (ej. pikachu, bulbasaur)" aria-label="Buscar Pokémon">
-                    <button id="doSearch" title="Buscar">Buscar</button>
-                    <button id="clear" title="Limpiar">✕</button>
-                </div>
-                <div class="mini">La búsqueda filtra las tarjetas localmente.</div>
-
-                <div class="grid" style="margin-top:18px" id="featured">
-                    <!-- featured small cards -->
-                    <div class="card" data-name="pikachu">
-                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu"></div>
-                        <div class="name">Pikachu</div>
-                        <div class="types"><div class="type">Eléctrico</div></div>
-                    </div>
-                    <div class="card" data-name="bulbasaur">
-                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur"></div>
-                        <div class="name">Bulbasaur</div>
-                        <div class="types"><div class="type">Planta</div><div class="type">Veneno</div></div>
-                    </div>
-                    <div class="card" data-name="charmander">
-                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="Charmander"></div>
-                        <div class="name">Charmander</div>
-                        <div class="types"><div class="type">Fuego</div></div>
-                    </div>
-                    <div class="card" data-name="squirtle">
-                        <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" alt="Squirtle"></div>
-                        <div class="name">Squirtle</div>
-                        <div class="types"><div class="type">Agua</div></div>
-                    </div>
-                </div>
+    <main class="layout-main">
+        <section id="slider" class="panel slider-panel" aria-labelledby="slider-title">
+            <div class="panel-head">
+                <h1 id="slider-title">Slider de Cartas Pokemon</h1>
+                <p>El carrusel actualiza nodos y atributos del DOM usando arreglos y objetos en JavaScript.</p>
             </div>
 
-            <aside style="display:flex;flex-direction:column;gap:14px">
-                <div id="collectionCard" style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
-                    <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:14px">
-                        <img id="collectionImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu" style="width:100px;height:100px;object-fit:contain;flex-shrink:0">
-                        <div style="flex:1">
-                            <h3 id="collectionName" style="margin:0 0 8px;font-size:1.375rem">Pikachu</h3>
-                            <div id="collectionTypes" style="margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap"></div>
-                            <div id="collectionInfo" style="color:var(--muted);font-size:0.95rem;margin-bottom:10px">Tipo: Eléctrico • Altura: 0.4m • Peso: 6kg</div>
-                        </div>
-                    </div>
-                    <div id="collectionAbilities" style="margin-bottom:10px;font-size:0.95rem;color:var(--muted)">
-                        <div style="font-weight:600;color:var(--text);margin-bottom:4px">Habilidades:</div>
-                        <div></div>
-                    </div>
-                    <p id="collectionDesc" style="margin:0 0 12px;color:var(--muted);font-size:0.95rem;line-height:1.5">Pikachu es un Pokémon de tipo eléctrico conocido por su energía y popularidad.</p>
-                    <button id="collectionRandom" style="padding:10px 14px;border-radius:8px;cursor:pointer;width:100%;font-weight:600">Pokémon Aleatorio</button>
+            <article class="slider-shell" aria-label="Carrusel Pokemon">
+                <figure class="slider-media">
+                    <img id="pokemon-image" src="" alt="">
+                    <figcaption>
+                        <h2 id="pokemon-name"></h2>
+                        <p id="pokemon-meta"></p>
+                    </figcaption>
+                </figure>
+
+                <div class="slider-controls">
+                    <button type="button" id="prev-slide" aria-label="Pokemon anterior">Anterior</button>
+                    <button type="button" id="next-slide" aria-label="Pokemon siguiente">Siguiente</button>
+                    <button type="button" id="shuffle-slide" aria-label="Pokemon aleatorio">Aleatorio</button>
                 </div>
 
-                
-            </aside>
+                <ul id="slider-indicators" class="slider-indicators" aria-label="Seleccion de Pokemon"></ul>
+            </article>
         </section>
 
-        <section>
-            <h2 style="margin:6px 0 12px">Explorar todos <button id="loadAll" style="margin-left:10px;padding:6px 8px;border-radius:8px;cursor:pointer">Mostrar todos</button> <span id="loadProgress" style="font-size:12px;color:var(--muted);margin-left:8px"></span></h2>
-            <div class="grid" id="allGrid">
-                <!-- a few more sample cards -->
-                <div class="card" data-name="eevee">
-                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png" alt="Eevee"></div>
-                    <div class="name">Eevee</div>
-                    <div class="types"><div class="type">Normal</div></div>
-                </div>
-                <div class="card" data-name="jigglypuff">
-                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" alt="Jigglypuff"></div>
-                    <div class="name">Jigglypuff</div>
-                    <div class="types"><div class="type">Normal</div><div class="type">Hada</div></div>
-                </div>
-                <div class="card" data-name="meowth">
-                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png" alt="Meowth"></div>
-                    <div class="name">Meowth</div>
-                    <div class="types"><div class="type">Normal</div></div>
-                </div>
-                <div class="card" data-name="snorlax">
-                    <div class="imgwrap"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png" alt="Snorlax"></div>
-                    <div class="name">Snorlax</div>
-                    <div class="types"><div class="type">Normal</div></div>
-                </div>
-            </div>
+        <section id="registro" class="panel" aria-labelledby="registro-title">
+            <h2 id="registro-title">Registro de Usuario</h2>
+            <form id="register-form" novalidate>
+                <fieldset>
+                    <legend>Crear cuenta</legend>
+
+                    <label for="register-name">Nombre completo</label>
+                    <input id="register-name" name="fullName" type="text" autocomplete="name" required maxlength="80">
+                    <small class="error" data-error-for="register-name"></small>
+
+                    <label for="register-email">Correo electronico</label>
+                    <input id="register-email" name="email" type="email" autocomplete="email" required maxlength="120">
+                    <small class="error" data-error-for="register-email"></small>
+
+                    <label for="register-password">Contrasena</label>
+                    <input id="register-password" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="64">
+                    <small class="error" data-error-for="register-password"></small>
+
+                    <button type="submit">Registrar</button>
+                </fieldset>
+            </form>
         </section>
 
-        <footer>
-            Diseñado como plantilla — Datos de ejemplo. © 2026
-        </footer>
+        <section id="login" class="panel" aria-labelledby="login-title">
+            <h2 id="login-title">Inicio de Sesion</h2>
+            <form id="login-form" novalidate>
+                <fieldset>
+                    <legend>Acceso de usuario</legend>
+
+                    <label for="login-email">Correo electronico</label>
+                    <input id="login-email" name="email" type="email" autocomplete="email" required maxlength="120">
+                    <small class="error" data-error-for="login-email"></small>
+
+                    <label for="login-password">Contrasena</label>
+                    <input id="login-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="64">
+                    <small class="error" data-error-for="login-password"></small>
+
+                    <button type="submit">Ingresar</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section id="contacto" class="panel" aria-labelledby="contact-title">
+            <h2 id="contact-title">Formulario de Contacto</h2>
+            <form id="contact-form" novalidate>
+                <fieldset>
+                    <legend>Envianos tu consulta</legend>
+
+                    <label for="contact-name">Nombre</label>
+                    <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="80">
+                    <small class="error" data-error-for="contact-name"></small>
+
+                    <label for="contact-email">Correo electronico</label>
+                    <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="120">
+                    <small class="error" data-error-for="contact-email"></small>
+
+                    <label for="contact-message">Mensaje</label>
+                    <textarea id="contact-message" name="message" rows="5" required maxlength="500"></textarea>
+                    <small class="error" data-error-for="contact-message"></small>
+
+                    <button type="submit">Enviar mensaje</button>
+                </fieldset>
+            </form>
+        </section>
     </main>
 
-    <script>
-        // búsqueda simple que filtra cards por data-name
-        const search = document.getElementById('search');
-        const clearBtn = document.getElementById('clear');
-        const containers = [document.getElementById('featured'), document.getElementById('allGrid')];
+    <section class="panel summary-panel" aria-labelledby="summary-title">
+        <h2 id="summary-title">Resumen de actividad en memoria</h2>
+        <p id="activity-log" aria-live="polite">Aun no hay envios registrados.</p>
+    </section>
 
-        function filter(q){
-            const term = (q || '').trim().toLowerCase();
-            containers.forEach(container=>{
-                Array.from(container.querySelectorAll('.card')).forEach(card=>{
-                    const name = card.getAttribute('data-name') || '';
-                    card.style.display = term && !name.includes(term) ? 'none' : '';
-                });
-            });
-        }
+    <footer class="site-footer">
+        <p>Proyecto Front-End 2026 · HTML semantico + CSS + JavaScript modular</p>
+    </footer>
 
-        search.addEventListener('input', e => filter(e.target.value));
-        clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); filter(''); });
-
-        // permite filtrar con Enter (útil si se integra backend)
-        search.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); performSearch(); }});
-
-        // --- Integración PokeAPI: cargar más Pokémon dinámicamente ---
-        const allGrid = document.getElementById('allGrid');
-        const doSearchBtn = document.getElementById('doSearch');
-
-        function capitalize(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
-
-        async function loadPokemons(limit = 150){
-            try{
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-                if(!res.ok) throw new Error('Error al cargar lista');
-                const data = await res.json();
-                data.results.forEach(r => {
-                    const url = r.url || '';
-                    const idMatch = url.match(/\/pokemon\/(\d+)\/$/);
-                    const id = idMatch ? idMatch[1] : '';
-                    const img = id ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png` : '';
-                    const name = r.name || '';
-
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.setAttribute('data-name', name);
-                    card.innerHTML = `
-                        <div class="imgwrap"><img src="${img}" alt="${name}"></div>
-                        <div class="name">${capitalize(name)}</div>
-                        <div class="types"><div class="type">Desconocido</div></div>
-                    `;
-                    allGrid.appendChild(card);
-                });
-                // actualizar referencia de contenedores para que la búsqueda filtre los nuevos items
-                if(!containers.includes(allGrid)) containers.push(allGrid);
-            }catch(err){
-                console.warn('PokeAPI error:', err);
-            }
-        }
-
-        // crea una card a partir de la respuesta de PokeAPI
-        function createCardFromApi(p){
-            const id = p.id || '';
-            const name = p.name || '';
-            const img = (p.sprites && (p.sprites.other && p.sprites.other['official-artwork'] && p.sprites.other['official-artwork'].front_default)) || p.sprites.front_default || '';
-            const types = (p.types || []).map(t => capitalize(t.type.name));
-
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.setAttribute('data-name', name);
-            card.setAttribute('data-fetched', 'true');
-            card.innerHTML = `
-                <div class="imgwrap"><img src="${img}" alt="${name}"></div>
-                <div class="name">${capitalize(name)}</div>
-                <div class="types">${types.map(t => `<div class="type">${t}</div>`).join('')}</div>
-            `;
-            return card;
-        }
-
-        // buscar un único Pokémon en la API y mostrarlo en la landpage
-        async function fetchAndShowPokemon(name){
-            const q = (name||'').trim().toLowerCase();
-            if(!q) return;
-            // evitar duplicados
-            if(document.querySelector(`.card[data-name="${CSS.escape(q)}"]`)){
-                const existing = document.querySelector(`.card[data-name="${CSS.escape(q)}"]`);
-                existing.scrollIntoView({behavior:'smooth',block:'center'});
-                return;
-            }
-            try{
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${q}`);
-                if(!res.ok){
-                    alert('Pokémon no encontrado. Verifica el nombre.');
-                    return;
-                }
-                const data = await res.json();
-                const card = createCardFromApi(data);
-                allGrid.prepend(card);
-                card.scrollIntoView({behavior:'smooth',block:'center'});
-                if(!containers.includes(allGrid)) containers.push(allGrid);
-            }catch(err){
-                console.warn('Error fetch pokemon:', err);
-                alert('Error al buscar Pokémon. Intenta nuevamente.');
-            }
-        }
-
-        // realiza la búsqueda local y, si no hay coincidencias, intenta buscar en la API
-        async function performSearch(){
-            const term = (search.value||'').trim().toLowerCase();
-            filter(term);
-            if(!term) return;
-            const anyVisible = containers.some(c => Array.from(c.querySelectorAll('.card')).some(card => card.style.display !== 'none' && (card.getAttribute('data-name')||'').includes(term)));
-            if(!anyVisible){
-                await fetchAndShowPokemon(term);
-            }
-        }
-
-        // botón Buscar junto al input
-        doSearchBtn.addEventListener('click', () => performSearch());
-
-        // limpiar también elimina resultados traídos por la API
-        clearBtn.addEventListener('click', ()=>{ search.value=''; search.focus(); filter(''); document.querySelectorAll('.card[data-fetched="true"]').forEach(n=>n.remove()); });
-
-        // --- Sección Colección: mostrar Pokémon grande y descripción ---
-        const collectionImg = document.getElementById('collectionImg');
-        const collectionName = document.getElementById('collectionName');
-        const collectionTypes = document.getElementById('collectionTypes');
-        const collectionInfo = document.getElementById('collectionInfo');
-        const collectionAbilities = document.getElementById('collectionAbilities');
-        const collectionDesc = document.getElementById('collectionDesc');
-        const collectionRandomBtn = document.getElementById('collectionRandom');
-
-        function renderCollection(p){
-            if(!p) return;
-            const name = p.name || '';
-            const img = (p.sprites && (p.sprites.other && p.sprites.other['official-artwork'] && p.sprites.other['official-artwork'].front_default)) || p.sprites.front_default || collectionImg.src;
-            const types = (p.types || []).map(t=>capitalize(t.type.name));
-            const heightM = ((p.height||0)/10).toFixed(1);
-            const weightKg = ((p.weight||0)/10).toFixed(1);
-            const abilities = (p.abilities||[]).map(a=>capitalize(a.ability.name)).join(', ') || 'Desconocida';
-            
-            collectionImg.src = img;
-            collectionImg.alt = name;
-            collectionName.textContent = capitalize(name);
-            collectionTypes.innerHTML = types.map(t=>`<div class="type">${t}</div>`).join('');
-            collectionInfo.textContent = `Tipo: ${types.join(', ')} • Altura: ${heightM} m • Peso: ${weightKg} kg`;
-            collectionAbilities.innerHTML = `<div style="font-weight:600;color:var(--text);margin-bottom:4px">Habilidades:</div><div>${abilities}</div>`;
-            collectionDesc.textContent = `Pokédex #${p.id}`;
-        }
-
-        async function fetchAndPopulateCollection(q){
-            try{
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${q}`);
-                if(!res.ok) return;
-                const data = await res.json();
-                renderCollection(data);
-                
-                // fetch species para obtener descripción en español
-                try{
-                    const sUrl = (data.species && data.species.url) ? data.species.url : `https://pokeapi.co/api/v2/pokemon-species/${data.id}`;
-                    const sres = await fetch(sUrl);
-                    if(sres.ok){
-                        const species = await sres.json();
-                        const entries = species.flavor_text_entries || [];
-                        let flavor = '';
-                        
-                        // buscar descripción en español
-                        for(const e of entries){
-                            if(e.language && e.language.name === 'es') { 
-                                flavor = e.flavor_text; 
-                                break; 
-                            }
-                        }
-                        
-                        // si no hay español, buscar inglés
-                        if(!flavor) {
-                            for(const e of entries){
-                                if(e.language && e.language.name === 'en') { 
-                                    flavor = e.flavor_text; 
-                                    break; 
-                                }
-                            }
-                        }
-                        
-                        // fallback a la primera disponible
-                        if(!flavor && entries.length) flavor = entries[0].flavor_text || '';
-                        
-                        // limpiar espacios en blanco y caracteres especiales
-                        flavor = (flavor || '').replace(/\f|\n/g,' ').replace(/\s+/g,' ').trim();
-                        
-                        if(flavor) {
-                            collectionDesc.textContent = flavor;
-                        } else {
-                            collectionDesc.textContent = `Pokédex #${data.id}`;
-                        }
-                    }
-                }catch(se){ 
-                    console.warn('collection species fetch', se);
-                    collectionDesc.textContent = `Pokédex #${data.id}`;
-                }
-            }catch(e){ console.warn('collection fetch', e); }
-        }
-
-        collectionRandomBtn.addEventListener('click', ()=>{
-            const max = 1010;
-            const id = Math.floor(Math.random()*max)+1;
-            fetchAndPopulateCollection(id);
-        });
-
-        // cargar al iniciar una lista parcial para la landpage y poblar la colección
-        loadPokemons(150);
-        fetchAndPopulateCollection('pikachu');
-
-        // --- Poblado de Ditto en la columna (usa https://pokeapi.co/api/v2/pokemon/ditto) ---
-        const dittoImg = document.getElementById('dittoImg');
-        const dittoName = document.getElementById('dittoName');
-        const dittoInfo = document.getElementById('dittoInfo');
-        const dittoAbilities = document.getElementById('dittoAbilities');
-        const dittoFlavor = document.getElementById('dittoFlavor');
-
-        async function fetchDitto(){
-            try{
-                const res = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');
-                if(!res.ok) return;
-                const p = await res.json();
-                const img = (p.sprites && (p.sprites.other && p.sprites.other['official-artwork'] && p.sprites.other['official-artwork'].front_default)) || p.sprites.front_default || dittoImg.src;
-                dittoImg.src = img;
-                dittoImg.alt = p.name || 'Ditto';
-                dittoName.textContent = capitalize(p.name || 'Ditto');
-                const types = (p.types||[]).map(t=>capitalize(t.type.name)).join(', ') || 'Desconocido';
-                const heightM = ((p.height||0)/10).toFixed(1);
-                const weightKg = ((p.weight||0)/10).toFixed(1);
-                dittoInfo.textContent = `Tipo: ${types} • Altura: ${heightM} m • Peso: ${weightKg} kg`;
-                dittoAbilities.innerHTML = 'Habilidades: ' + (p.abilities||[]).map(a=>capitalize(a.ability.name)).join(', ');
-
-                // fetch species to get flavor text in Spanish
-                try{
-                    const sUrl = (p.species && p.species.url) ? p.species.url : 'https://pokeapi.co/api/v2/pokemon-species/ditto';
-                    const sres = await fetch(sUrl);
-                    if(sres.ok){
-                        const species = await sres.json();
-                        const entries = species.flavor_text_entries || [];
-                        let flavor = '';
-                        for(const e of entries){
-                            if(e.language && e.language.name === 'es') { flavor = e.flavor_text; break; }
-                        }
-                        if(!flavor && entries.length) flavor = entries[0].flavor_text || '';
-                        // clean whitespace and control chars
-                        flavor = (flavor || '').replace(/\f|\n/g,' ').replace(/\s+/g,' ').trim();
-                        dittoFlavor.textContent = flavor;
-                    }
-                }catch(se){ console.warn('species fetch', se); }
-
-            }catch(e){ console.warn('fetchDitto', e); }
-        }
-
-        fetchDitto();
-    </script>
+    <script src="Js/main.js"></script>
 </body>
 </html>
