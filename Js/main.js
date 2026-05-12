@@ -59,8 +59,18 @@
         activityLog: document.getElementById("activity-log"),
         registerForm: document.getElementById("register-form"),
         loginForm: document.getElementById("login-form"),
-        contactForm: document.getElementById("contact-form")
+        contactForm: document.getElementById("contact-form"),
+        dittoImg: document.getElementById("dittoImg"),
+        dittoName: document.getElementById("dittoName"),
+        dittoInfo: document.getElementById("dittoInfo"),
+        dittoAbilities: document.getElementById("dittoAbilities"),
+        dittoFlavor: document.getElementById("dittoFlavor")
     };
+
+    function capitalize(value) {
+        const text = String(value ?? "");
+        return text ? text.charAt(0).toUpperCase() + text.slice(1) : "";
+    }
 
     function safeText(value) {
         return String(value ?? "").replace(/[<>]/g, "").trim();
@@ -328,6 +338,43 @@
         });
     }
 
+    async function fetchDitto() {
+        if (!dom.dittoImg || !dom.dittoName || !dom.dittoInfo || !dom.dittoAbilities || !dom.dittoFlavor) {
+            return;
+        }
+
+        try {
+            const response = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
+            if (!response.ok) {
+                return;
+            }
+
+            const pokemon = await response.json();
+            const image =
+                (pokemon.sprites && pokemon.sprites.other && pokemon.sprites.other["official-artwork"] && pokemon.sprites.other["official-artwork"].front_default) ||
+                (pokemon.sprites && pokemon.sprites.front_default) ||
+                dom.dittoImg.src;
+
+            const types = (pokemon.types || []).map(function mapType(item) {
+                return capitalize(item.type.name);
+            }).join(", ");
+            const heightM = ((pokemon.height || 0) / 10).toFixed(1);
+            const weightKg = ((pokemon.weight || 0) / 10).toFixed(1);
+            const abilities = (pokemon.abilities || []).map(function mapAbility(item) {
+                return capitalize(item.ability.name);
+            }).join(", ");
+
+            dom.dittoImg.src = image;
+            dom.dittoImg.alt = pokemon.name || "Ditto";
+            dom.dittoName.textContent = capitalize(pokemon.name || "Ditto");
+            dom.dittoInfo.textContent = "Tipo: " + (types || "Desconocido") + " - Altura: " + heightM + " m - Peso: " + weightKg + " kg";
+            dom.dittoAbilities.textContent = "Habilidades: " + (abilities || "Desconocidas");
+            dom.dittoFlavor.textContent = "Pokemon inicial destacado de la pagina.";
+        } catch (error) {
+            console.warn("No se pudo cargar Ditto:", error);
+        }
+    }
+
     function init() {
         buildIndicators();
         renderSlide();
@@ -335,6 +382,7 @@
         setupRegisterForm();
         setupLoginForm();
         setupContactForm();
+        fetchDitto();
     }
 
     init();

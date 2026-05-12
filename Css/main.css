@@ -24,7 +24,7 @@ body {
     margin: 0;
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     color: var(--text);
-    background: linear-gradient(180deg, #071026 0%, #07172a 55%), var(--bg);
+    background: linear-gradient(180deg, #071026 0%, #07172a 50%), var(--bg);
     line-height: 1.6;
 }
 
@@ -121,6 +121,37 @@ body {
 
 .slider-panel {
     grid-column: 1 / -1;
+}
+
+.ditto-card {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0.75rem;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+#dittoImg {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+#dittoName {
+    margin: 0 0 0.15rem;
+    font-size: 1.05rem;
+}
+
+#dittoInfo,
+#dittoAbilities,
+#dittoFlavor {
+    margin: 0.15rem 0;
+    color: var(--muted);
+    font-size: 0.92rem;
 }
 
 .panel-head h1,
