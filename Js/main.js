@@ -2,6 +2,7 @@
 
 (function initApp() {
     const pokemonSlides = [
+        // Pikachu - Pokemon electrico clasico
         {
             id: 25,
             name: "Pikachu",
@@ -39,12 +40,13 @@
         }
     ];
 
+    // ESTADO GLOBAL - Almacena el indice actual del carrusel y registros de formularios
     const appState = {
-        currentSlide: 0,
+        currentSlide: 0,  // Indice del Pokemon actual (0-4)
         submissions: {
-            register: [],
-            loginAttempts: [],
-            contacts: []
+            register: [],          // Array de usuarios registrados
+            loginAttempts: [],     // Array de intentos de login
+            contacts: []           // Array de mensajes de contacto
         }
     };
 
@@ -64,7 +66,8 @@
         dittoName: document.getElementById("dittoName"),
         dittoInfo: document.getElementById("dittoInfo"),
         dittoAbilities: document.getElementById("dittoAbilities"),
-        dittoFlavor: document.getElementById("dittoFlavor")
+        dittoFlavor: document.getElementById("dittoFlavor"),
+        headerDittoImg: document.getElementById("headerDittoImg")  // Logo Ditto en header
     };
 
     function capitalize(value) {
@@ -110,6 +113,9 @@
         }
     }
 
+    // === CAROUSEL LOGIC ===
+    // Construye los botones indicadores para cada Pokemon
+    // Permite seleccionar directamente un Pokemon del carrusel
     function buildIndicators() {
         dom.indicators.innerHTML = "";
 
@@ -128,6 +134,8 @@
         });
     }
 
+    // Renderiza la diapositiva actual del carrusel
+    // Actualiza imagen, nombre, tipo del Pokemon
     function renderSlide() {
         const slide = pokemonSlides[appState.currentSlide];
 
@@ -196,6 +204,8 @@
         }, {});
     }
 
+    // FORM VALIDATION FUNCTIONS
+    // Valida formulario de REGISTRO: nombre (3+), email valido, password fuerte
     function validateRegister(values, form) {
         let isValid = true;
 
@@ -225,6 +235,7 @@
         return isValid;
     }
 
+    // Valida formulario de LOGIN: email valido, password minimo 8 caracteres
     function validateLogin(values, form) {
         let isValid = true;
 
@@ -247,6 +258,7 @@
         return isValid;
     }
 
+    // Valida formulario de CONTACTO: nombre (3+), email, mensaje (15+), detecta XSS
     function validateContact(values, form) {
         let isValid = true;
 
@@ -338,6 +350,8 @@
         });
     }
 
+    // API INTEGRATION - Obtiene datos de Ditto desde PokeAPI
+    // Renderiza tipo, habilidades y descripcion dinamicamente
     async function fetchDitto() {
         if (!dom.dittoImg || !dom.dittoName || !dom.dittoInfo || !dom.dittoAbilities || !dom.dittoFlavor) {
             return;
@@ -370,11 +384,18 @@
             dom.dittoInfo.textContent = "Tipo: " + (types || "Desconocido") + " - Altura: " + heightM + " m - Peso: " + weightKg + " kg";
             dom.dittoAbilities.textContent = "Habilidades: " + (abilities || "Desconocidas");
             dom.dittoFlavor.textContent = "Pokemon inicial destacado de la pagina.";
+            
+            // Tambien carga Ditto en el header como logo dinamico
+            if (dom.headerDittoImg) {
+                dom.headerDittoImg.src = image;
+            }
         } catch (error) {
             console.warn("No se pudo cargar Ditto:", error);
         }
     }
 
+    // INITIALIZATION - Punto de entrada de la aplicacion
+    // Ejecuta todas las funciones de configuracion en el orden correcto
     function init() {
         buildIndicators();
         renderSlide();

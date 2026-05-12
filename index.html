@@ -12,15 +12,18 @@
     <link rel="icon" href="Images/pokedex-3.ico" type="image/x-icon">
 </head>
 <body>
+    <!-- HEADER: Navegacion principal -->
     <header class="site-header">
+        <!-- Logo dinamico Ditto en el header -->
         <div class="brand-wrap">
-            <div class="logo" aria-hidden="true"></div>
+            <img id="headerDittoImg" src="" alt="Ditto logo" class="header-ditto-logo" aria-hidden="true">
             <div>
                 <p class="brand-title">PokeDex</p>
                 <p class="brand-subtitle">Explora Pokemon</p>
             </div>
         </div>
 
+        <!-- Menu de navegacion -->
         <nav aria-label="Navegacion principal" class="main-nav">
             <a href="#slider">Inicio</a>
             <a href="#registro">Registro</a>
@@ -43,22 +46,22 @@
 
             <div class="panel-head">
                 <h1 id="slider-title">Descubre y explora Pokemon</h1>
-                <p class="lead">Carrusel dinamico con JavaScript usando arreglos y objetos para renderizar cartas Pokemon.</p>
+                <p class="lead">Carrusel dinamico con controles. Modifica el DOM dinamicamente con JavaScript.</p>
             </div>
 
             <article class="slider-shell" aria-label="Carrusel Pokemon">
                 <figure class="slider-media">
-                    <img id="pokemon-image" src="" alt="">
-                    <figcaption>
+                    <img id="pokemon-image" src="" alt="" class="slider-image">
+                    <figcaption class="slider-info">
                         <h2 id="pokemon-name"></h2>
                         <p id="pokemon-meta"></p>
                     </figcaption>
                 </figure>
 
                 <div class="slider-controls">
-                    <button type="button" id="prev-slide" aria-label="Pokemon anterior">Anterior</button>
-                    <button type="button" id="next-slide" aria-label="Pokemon siguiente">Siguiente</button>
-                    <button type="button" id="shuffle-slide" aria-label="Pokemon aleatorio">Pokemon aleatorio</button>
+                    <button type="button" id="prev-slide" aria-label="Pokemon anterior" class="control-btn">← Anterior</button>
+                    <button type="button" id="next-slide" aria-label="Pokemon siguiente" class="control-btn">Siguiente →</button>
+                    <button type="button" id="shuffle-slide" aria-label="Pokemon aleatorio" class="control-btn">🎲 Aleatorio</button>
                 </div>
 
                 <ul id="slider-indicators" class="slider-indicators" aria-label="Seleccion de Pokemon"></ul>
