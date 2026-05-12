@@ -3,26 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Centro Pokemon - Evaluacion Front-End</title>
-    <meta name="description" content="Proyecto con carrusel Pokemon, formularios semanticos y validaciones seguras en JavaScript modular.">
+    <title>PokeDex - Landing 2026</title>
+    <meta name="description" content="Landing PokeDex con slider Pokemon y formularios de registro, login y contacto.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Css/main.css">
     <link rel="icon" href="Images/pokedex-3.ico" type="image/x-icon">
 </head>
 <body>
     <header class="site-header">
         <div class="brand-wrap">
-            <div class="brand-ball" aria-hidden="true"></div>
+            <div class="logo" aria-hidden="true"></div>
             <div>
-                <p class="brand-title">Centro Pokemon</p>
-                <p class="brand-subtitle">Carrusel, Formularios y Validacion</p>
+                <p class="brand-title">PokeDex</p>
+                <p class="brand-subtitle">Explora Pokemon</p>
             </div>
         </div>
 
         <nav aria-label="Navegacion principal" class="main-nav">
-            <a href="#slider">Slider</a>
+            <a href="#slider">Inicio</a>
             <a href="#registro">Registro</a>
             <a href="#login">Login</a>
             <a href="#contacto">Contacto</a>
@@ -32,8 +32,8 @@
     <main class="layout-main">
         <section id="slider" class="panel slider-panel" aria-labelledby="slider-title">
             <div class="panel-head">
-                <h1 id="slider-title">Slider de Cartas Pokemon</h1>
-                <p>El carrusel actualiza nodos y atributos del DOM usando arreglos y objetos en JavaScript.</p>
+                <h1 id="slider-title">Descubre y explora Pokemon</h1>
+                <p class="lead">Carrusel dinamico con JavaScript usando arreglos y objetos para renderizar cartas Pokemon.</p>
             </div>
 
             <article class="slider-shell" aria-label="Carrusel Pokemon">
@@ -48,7 +48,7 @@
                 <div class="slider-controls">
                     <button type="button" id="prev-slide" aria-label="Pokemon anterior">Anterior</button>
                     <button type="button" id="next-slide" aria-label="Pokemon siguiente">Siguiente</button>
-                    <button type="button" id="shuffle-slide" aria-label="Pokemon aleatorio">Aleatorio</button>
+                    <button type="button" id="shuffle-slide" aria-label="Pokemon aleatorio">Pokemon aleatorio</button>
                 </div>
 
                 <ul id="slider-indicators" class="slider-indicators" aria-label="Seleccion de Pokemon"></ul>
@@ -56,7 +56,7 @@
         </section>
 
         <section id="registro" class="panel" aria-labelledby="registro-title">
-            <h2 id="registro-title">Registro de Usuario</h2>
+            <h2 id="registro-title">Registro de usuario</h2>
             <form id="register-form" novalidate>
                 <fieldset>
                     <legend>Crear cuenta</legend>
@@ -79,7 +79,7 @@
         </section>
 
         <section id="login" class="panel" aria-labelledby="login-title">
-            <h2 id="login-title">Inicio de Sesion</h2>
+            <h2 id="login-title">Inicio de sesion</h2>
             <form id="login-form" novalidate>
                 <fieldset>
                     <legend>Acceso de usuario</legend>
@@ -98,7 +98,7 @@
         </section>
 
         <section id="contacto" class="panel" aria-labelledby="contact-title">
-            <h2 id="contact-title">Formulario de Contacto</h2>
+            <h2 id="contact-title">Contacto</h2>
             <form id="contact-form" novalidate>
                 <fieldset>
                     <legend>Envianos tu consulta</legend>
@@ -121,13 +121,9 @@
         </section>
     </main>
 
-    <section class="panel summary-panel" aria-labelledby="summary-title">
-        <h2 id="summary-title">Resumen de actividad en memoria</h2>
-        <p id="activity-log" aria-live="polite">Aun no hay envios registrados.</p>
-    </section>
-
     <footer class="site-footer">
-        <p>Proyecto Front-End 2026 · HTML semantico + CSS + JavaScript modular</p>
+        <p id="activity-log" aria-live="polite">Aun no hay envios registrados.</p>
+        <p>Disenado como plantilla - Datos de ejemplo. © 2026</p>
     </footer>
 
     <script src="Js/main.js"></script>

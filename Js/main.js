@@ -170,10 +170,12 @@
         const loginCount = appState.submissions.loginAttempts.length;
         const contactCount = appState.submissions.contacts.length;
 
-        dom.activityLog.textContent =
-            "Registros: " + registerCount +
-            " | Logins: " + loginCount +
-            " | Contactos: " + contactCount;
+        if (dom.activityLog) {
+            dom.activityLog.textContent =
+                "Registros: " + registerCount +
+                " | Logins: " + loginCount +
+                " | Contactos: " + contactCount;
+        }
     }
 
     function getFormValues(form, fields) {
